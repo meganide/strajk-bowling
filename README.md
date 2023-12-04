@@ -7,6 +7,9 @@
   - Användaren kan ange antal banor för bokningen.
 
 - Som användare vill jag kunna välja skostorlek för varje spelare så varje spelare får skor som passar.
+  - Användaren ska kunna trycka på en lägg till sko knapp.
+  - När knappen trycks på ska ett sko-fält dyka upp.
+  - I skofältet ska användaren kunna skriva önskad skostorlek.
   - För varje spelare i bokningen ska användaren kunna välja önskad skostorlek.
 
 - Som användare vill jag kunna ta bort ett fält för skostorlek om jag råkade klicka i ett för mycket så jag inte boka skor i onödan.
