@@ -7,18 +7,27 @@ function Input({
 	name,
 	handleChange,
 	defaultValue,
-	disabled
+	disabled,
+	testId
 }) {
 	return (
 		<section className="input">
-			<label className="input__label">{label}</label>
+			<label
+				htmlFor={label}
+				className="input__label"
+			>
+				{label}
+			</label>
 			<input
+				id={label}
 				type={type}
 				className={`input__field ${customClass ? customClass : ""}`}
+				name={name}
 				aria-label={name}
 				onChange={handleChange}
 				defaultValue={defaultValue ? defaultValue : ""}
 				disabled={disabled}
+				data-testid={testId ?? name}
 			/>
 		</section>
 	);

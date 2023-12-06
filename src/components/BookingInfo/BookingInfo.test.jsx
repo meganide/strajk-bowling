@@ -3,11 +3,9 @@ import userEvent from "@testing-library/user-event";
 import BookingInfo from "./BookingInfo";
 import { beforeEach } from "vitest";
 
-function getInputs() {
+export function getInputs() {
 	return {
-		dateInput: screen.getByRole("textbox", {
-			type: "date"
-		}),
+		dateInput: screen.getByTestId("when"),
 		timeInput: screen.getByRole("textbox", {
 			type: "text",
 			name: "time"

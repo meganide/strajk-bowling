@@ -49,7 +49,7 @@ describe("Shoes", () => {
 				shoes={shoes}
 			/>
 		);
-		const shoeSizeInput = screen.getByRole("textbox");
+		const shoeSizeInput = screen.getByTestId("shoe");
 
 		expect(addShoe).toHaveBeenCalledWith(expect.any(String));
 		expect(shoeSizeInput).toBeInTheDocument();
@@ -69,7 +69,7 @@ describe("Shoes", () => {
 				shoes={shoes}
 			/>
 		);
-		const shoeSizeInput = screen.getByRole("textbox");
+		const shoeSizeInput = screen.getByTestId("shoe");
 
 		await userEvent.type(shoeSizeInput, "43");
 
@@ -91,7 +91,7 @@ describe("Shoes", () => {
 				shoes={shoes}
 			/>
 		);
-		const shoeSizeInput = screen.getByRole("textbox");
+		const shoeSizeInput = screen.getByTestId("shoe");
 		const removeShoeButton = screen.getByRole("button", { name: "-" });
 
 		await userEvent.click(removeShoeButton);
