@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import { getInputs } from "../components/BookingInfo/BookingInfo.test";
 import router from "../router";
 
-async function populateInputs() {
+export async function populateInputs() {
 	const bookButton = screen.getByRole("button", { name: "strIIIIIike!" });
 	const { dateInput, lanesInput, peopleInput, timeInput } = getInputs();
 	await userEvent.type(timeInput, "15:00");
