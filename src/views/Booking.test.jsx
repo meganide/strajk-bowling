@@ -36,6 +36,17 @@ describe("Booking", () => {
 		expect(bookButton).toBeInTheDocument();
 	});
 
+	it("should show error message when not all fields have been filled out", async () => {
+		const bookButton = screen.getByRole("button", { name: "strIIIIIike!" });
+		await userEvent.click(bookButton);
+
+		expect(
+			screen.getByText(
+				"Fill out all the fields and make sure that people and shoes is the same number."
+			)
+		).toBeInTheDocument();
+	});
+
 	it("should show error message when the number of shoes is not equal to the number of people", async () => {
 		const { peopleInput, dateInput, lanesInput, timeInput } = getInputs();
 		const bookButton = screen.getByRole("button", { name: "strIIIIIike!" });

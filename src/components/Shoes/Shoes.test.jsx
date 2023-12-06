@@ -55,6 +55,39 @@ describe("Shoes", () => {
 		expect(shoeSizeInput).toBeInTheDocument();
 	});
 
+	it("should be able to render multiple shoe size inputs", async () => {
+		const updateSize = vi.fn();
+		const addShoe = vi.fn();
+		const removeShoe = vi.fn();
+		const shoes = [];
+
+		const { rerender } = render(
+			<Shoes
+				updateSize={updateSize}
+				addShoe={addShoe}
+				removeShoe={removeShoe}
+				shoes={shoes}
+			/>
+		);
+		const addShoeButton = screen.getByRole("button", { name: "+" });
+
+		await userEvent.click(addShoeButton);
+		await userEvent.click(addShoeButton);
+		shoes.push({ id: "1", size: "" });
+		shoes.push({ id: "2", size: "" });
+		rerender(
+			<Shoes
+				updateSize={updateSize}
+				addShoe={addShoe}
+				removeShoe={removeShoe}
+				shoes={shoes}
+			/>
+		);
+		const shoeSizeInputs = screen.getAllByTestId("shoe");
+
+		expect(shoeSizeInputs).toHaveLength(2);
+	});
+
 	it("should update shoe size", async () => {
 		const updateSize = vi.fn();
 		const addShoe = vi.fn();
