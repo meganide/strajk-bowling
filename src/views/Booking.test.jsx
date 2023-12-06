@@ -1,10 +1,30 @@
 import { beforeEach, expect } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
-import Booking from "./Booking";
-import { BrowserRouter, RouterProvider } from "react-router-dom";
+import { render, screen } from "@testing-library/react";
+import { RouterProvider } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { getInputs } from "../components/BookingInfo/BookingInfo.test";
 import router from "../router";
+
+async function populateInputs() {
+	const bookButton = screen.getByRole("button", { name: "strIIIIIike!" });
+	const { dateInput, lanesInput, peopleInput, timeInput } = getInputs();
+	await userEvent.type(timeInput, "15:00");
+	await userEvent.type(peopleInput, "2");
+	await userEvent.type(lanesInput, "1");
+	await userEvent.type(dateInput, "2023-12-08");
+	const addShoeButton = screen.getByRole("button", { name: "+" });
+
+	await userEvent.click(addShoeButton);
+	await userEvent.click(addShoeButton);
+
+	const shoeSizeInputs = screen.getAllByTestId("shoe");
+
+	for (const shoeSizeInput of shoeSizeInputs) {
+		await userEvent.type(shoeSizeInput, "43");
+	}
+
+	await userEvent.click(bookButton);
+}
 
 describe("Booking", () => {
 	beforeEach(() => {
@@ -16,7 +36,7 @@ describe("Booking", () => {
 		expect(bookButton).toBeInTheDocument();
 	});
 
-	it("should show error message when the amount of shoes is not equal to the amount of people", async () => {
+	it("should show error message when the number of shoes is not equal to the number of people", async () => {
 		const { peopleInput, dateInput, lanesInput, timeInput } = getInputs();
 		const bookButton = screen.getByRole("button", { name: "strIIIIIike!" });
 
@@ -34,24 +54,7 @@ describe("Booking", () => {
 	});
 
 	it("should navigate to confirmation page, generate a unique booking number, and a total price when all fields are populated correctly and book button is clicked", async () => {
-		const bookButton = screen.getByRole("button", { name: "strIIIIIike!" });
-		const { dateInput, lanesInput, peopleInput, timeInput } = getInputs();
-		await userEvent.type(timeInput, "15:00");
-		await userEvent.type(peopleInput, "2");
-		await userEvent.type(lanesInput, "1");
-		await userEvent.type(dateInput, "2023-12-08");
-		const addShoeButton = screen.getByRole("button", { name: "+" });
-
-		await userEvent.click(addShoeButton);
-		await userEvent.click(addShoeButton);
-
-		const shoeSizeInputs = screen.getAllByTestId("shoe");
-
-		for (const shoeSizeInput of shoeSizeInputs) {
-			await userEvent.type(shoeSizeInput, "43");
-		}
-
-		await userEvent.click(bookButton);
+		await populateInputs();
 
 		const url = window.location.pathname;
 		const bookingNumberInput = screen.getByLabelText("Booking number");
