@@ -1,9 +1,11 @@
 import { beforeEach, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { RouterProvider } from "react-router-dom";
+import { MemoryRouter, Route, RouterProvider, Routes } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { getInputs } from "../components/BookingInfo/BookingInfo.test";
 import router from "../router";
+import Booking from "./Booking";
+import Confirmation from "./Confirmation";
 
 export async function populateInputs() {
 	const bookButton = screen.getByRole("button", { name: "strIIIIIike!" });
@@ -27,8 +29,23 @@ export async function populateInputs() {
 }
 
 describe("Booking", () => {
+	const renderWithRouter = (ui, { route = "/" } = {}) => {
+		return render(<MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>);
+	};
+
 	beforeEach(() => {
-		render(<RouterProvider router={router} />);
+		renderWithRouter(
+			<Routes>
+				<Route
+					path="/"
+					element={<Booking />}
+				/>
+				<Route
+					path="/confirmation"
+					element={<Confirmation />}
+				/>
+			</Routes>
+		);
 	});
 
 	it("should render book button", () => {
@@ -67,7 +84,6 @@ describe("Booking", () => {
 	it("should navigate to confirmation page, generate a unique booking number, and a total price when all fields are populated correctly and book button is clicked", async () => {
 		await populateInputs();
 
-		const url = window.location.pathname;
 		const bookingNumberInput = screen.getByLabelText("Booking number");
 		const expectedBookingNumber = "STR9124FVQK";
 		const totalPrice = Number(
@@ -75,7 +91,7 @@ describe("Booking", () => {
 		);
 		const expectedTotalPrice = 120 * 2 + 100 * 1;
 
-		expect(url).toBe("/confirmation");
+		expect(screen.getByText(/See you soon!/i)).toBeInTheDocument();
 		expect(bookingNumberInput.value).toBe(expectedBookingNumber);
 		expect(totalPrice).toBe(expectedTotalPrice);
 	});

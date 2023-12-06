@@ -1,19 +1,36 @@
-import { RouterProvider } from "react-router-dom";
+import { MemoryRouter, Route, RouterProvider, Routes } from "react-router-dom";
 import router from "../router";
 import { expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { populateInputs } from "./Booking.test";
+import Booking from "./Booking";
+import Confirmation from "./Confirmation";
 
 describe("Confirmation", () => {
+	const renderWithRouter = (ui, { route = "/" } = {}) => {
+		return render(<MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>);
+	};
+
 	beforeEach(() => {
-		render(<RouterProvider router={router} />);
+		renderWithRouter(
+			<Routes>
+				<Route
+					path="/"
+					element={<Booking />}
+				/>
+				<Route
+					path="/confirmation"
+					element={<Confirmation />}
+				/>
+			</Routes>
+		);
 	});
 
 	it("should be able to navigate back and forth between booking page and confirmation page", async () => {
 		await populateInputs();
-		let url = window.location.pathname;
-		expect(url).toBe("/confirmation");
+
+		expect(screen.getByText(/See you soon!/i)).toBeInTheDocument();
 
 		await userEvent.click(screen.getByRole("navigation"));
 		await userEvent.click(
@@ -21,9 +38,8 @@ describe("Confirmation", () => {
 				name: /booking/i
 			})
 		);
-		url = window.location.pathname;
 
-		expect(url).toBe("/");
+		expect(screen.getByText(/WHEN, WHAT & WHO/i)).toBeInTheDocument();
 
 		await userEvent.click(screen.getByRole("navigation"));
 		await userEvent.click(
@@ -31,8 +47,7 @@ describe("Confirmation", () => {
 				name: /confirmation/i
 			})
 		);
-		url = window.location.pathname;
 
-		expect(url).toBe("/confirmation");
+		expect(screen.getByText(/See you soon!/i)).toBeInTheDocument();
 	});
 });
