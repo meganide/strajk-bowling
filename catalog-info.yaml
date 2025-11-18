@@ -19,7 +19,6 @@ metadata:
   name: strajk-bowling
   annotations:
     github.com/project-slug: meganide/strajk-bowling
-    github.com/project-slug: meganide/strajk-bowling
 spec:
   type: service
   lifecycle: unknown
