@@ -6,7 +6,7 @@ metadata:
 spec:
   type: business-unit
   profile:
-    displayName: Infrastructure
+    displayName: Strajkers
     email: infrastructure@example.com
     picture: https://example.com/groups/bu-infrastructure.jpeg
   parent: ops
