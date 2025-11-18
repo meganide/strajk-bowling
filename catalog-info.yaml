@@ -19,6 +19,7 @@ metadata:
   name: strajk-bowling
   annotations:
     github.com/project-slug: meganide/strajk-bowling
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: other
   lifecycle: unknown
