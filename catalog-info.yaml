@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
-  name: strajk-bowling
+  name: strajkers
   description: The infra business unit
 spec:
   type: business-unit
@@ -12,3 +12,15 @@ spec:
   parent: ops
   children: [backstage, other]
   members: [jdoe]
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: strajk-bowling
+  annotations:
+    github.com/project-slug: meganide/strajk-bowling
+spec:
+  type: other
+  lifecycle: unknown
+  owner: strajkers
