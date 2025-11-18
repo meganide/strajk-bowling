@@ -1,10 +1,14 @@
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: Group
 metadata:
   name: strajk-bowling
-  annotations:
-    github.com/project-slug: meganide/strajk-bowling
+  description: The infra business unit
 spec:
-  type: other
-  lifecycle: unknown
-  owner: guests
+  type: business-unit
+  profile:
+    displayName: Infrastructure
+    email: infrastructure@example.com
+    picture: https://example.com/groups/bu-infrastructure.jpeg
+  parent: ops
+  children: [backstage, other]
+  members: [jdoe]
