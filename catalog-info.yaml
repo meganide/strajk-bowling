@@ -12,7 +12,6 @@ spec:
   parent: ops
   children: [backstage, other]
   members: [jdoe]
-
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
