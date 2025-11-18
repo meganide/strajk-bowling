@@ -20,7 +20,8 @@ metadata:
   annotations:
     github.com/project-slug: meganide/strajk-bowling
     backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: meganide/strajk-bowling
 spec:
-  type: other
+  type: service
   lifecycle: unknown
   owner: strajkers
